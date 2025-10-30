@@ -3,10 +3,9 @@ import type { NextRequest } from "next/server";
 import Negotiator from "negotiator";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 
-const locales = ["en", "fa"]; // add your supported locales here
-const defaultLocale = "en";
+const locales = ["en", "fa"];
+const defaultLocale = "fa";
 
-// Extract locale from Accept-Language header using Negotiator + intl-localematcher
 function getLocale(request: NextRequest): string {
   const acceptLanguage = request.headers.get("accept-language") || "";
   const headers = { "accept-language": acceptLanguage };
@@ -18,9 +17,14 @@ function getLocale(request: NextRequest): string {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip Next.js internal paths
   if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
     return NextResponse.next();
+  }
+
+  if (pathname === "/") {
+    const locale = getLocale(request);
+    const newUrl = new URL(`/${locale}/home`, request.url);
+    return NextResponse.redirect(newUrl);
   }
 
   // Check if pathname already contains a locale
@@ -29,13 +33,12 @@ export function proxy(request: NextRequest) {
   );
 
   if (!pathnameHasLocale) {
-    // Detect locale and redirect to the localized version
     const locale = getLocale(request);
     const newUrl = new URL(`/${locale}${pathname}`, request.url);
     return NextResponse.redirect(newUrl);
   }
 
-  // Otherwise continue
+  // Continue normally for localized routes
   return NextResponse.next();
 }
 

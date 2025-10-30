@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "../globals.css";
+import { Navbar } from "../components/templates/Navbar";
+import { Footer } from "../components/templates/Footer";
 
 // Metadata object for the page
 export const metadata: Metadata = {
@@ -18,8 +20,14 @@ export default async function RootLayout({
   const { lang } = await params;
 
   return (
-    <html lang={lang}>
-      <body>{children}</body>
+    <html lang={lang} dir="rtl">
+      <body className="font-[kalameh]">
+        <main className="size-full m-auto max-w-116 ">
+          <Navbar />
+          {children}
+          <Footer />
+        </main>
+      </body>
     </html>
   );
 }

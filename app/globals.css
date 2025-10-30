@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "kalameh";
+  src: url("/fonts/KalamehWeb-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "kalameh";
+  src: url("/fonts/KalamehWeb-Regular.woff") format("woff");
+}

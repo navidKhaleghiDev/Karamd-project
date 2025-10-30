@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import "../globals.css";
 
 // Metadata object for the page
@@ -8,13 +9,16 @@ export const metadata: Metadata = {
     "کارآمد خیلی ساده و حرفه ای ، برای رفع مشکلات همیشه در کنار شما خواهد بود",
 };
 
+// Add the transition file to the project
+
 export default async function RootLayout({
   children,
   params,
-}: LayoutProps<"/[locale]">) {
-  const { locale } = await params;
+}: LayoutProps<"/[lang]">) {
+  const { lang } = await params;
+
   return (
-    <html lang={locale}>
+    <html lang={lang}>
       <body>{children}</body>
     </html>
   );

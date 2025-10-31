@@ -1,3 +1,4 @@
+// proxy.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import Negotiator from "negotiator";
@@ -17,32 +18,42 @@ function getLocale(request: NextRequest): string {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/_next") || pathname.startsWith("/api")) {
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/public") || // if you used /public prefix (rare)
+    pathname.startsWith("/images") ||
+    pathname.startsWith("/favicon") ||
+    /\.[^\/]+$/.test(pathname) // any path with an extension like .png, .js, .css, .svg etc
+  ) {
     return NextResponse.next();
   }
 
+  // ② Handle root path `/`
   if (pathname === "/") {
     const locale = getLocale(request);
     const newUrl = new URL(`/${locale}/home`, request.url);
     return NextResponse.redirect(newUrl);
   }
 
-  // Check if pathname already contains a locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  // ③ If path already contains locale, do nothing
+  const hasLocale = locales.some(
+    (loc) => pathname.startsWith(`/${loc}/`) || pathname === `/${loc}`
   );
-
-  if (!pathnameHasLocale) {
-    const locale = getLocale(request);
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
-    return NextResponse.redirect(newUrl);
+  if (hasLocale) {
+    return NextResponse.next();
   }
 
-  // Continue normally for localized routes
-  return NextResponse.next();
+  // ④ Otherwise, prefix locale and redirect
+  const locale = getLocale(request);
+  const newUrl = new URL(`/${locale}${pathname}`, request.url);
+  return NextResponse.redirect(newUrl);
 }
 
-// Match all paths except Next.js internals
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico).*)"],
+  matcher: [
+    // This pattern says: run proxy on all paths except
+    // those starting with _next, api, and except paths containing a dot (static files)
+    "/((?!_next|api|.*\\..*).*)",
+  ],
 };

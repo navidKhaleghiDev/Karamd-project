@@ -1,3 +1,3 @@
-export default function FundPage() {
-  return <div>index</div>;
+export default function Page() {
+  return <div></div>;
 }

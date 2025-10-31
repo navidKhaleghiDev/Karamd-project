@@ -5,25 +5,22 @@ import { Card, CardContent } from "../ui/Card";
 
 export function CreditCard() {
   return (
-    <Card className="relative w-full bg-[#0E4A40] text-white rounded-xl shadow-lg overflow-hidden">
-      <CardContent className="p-5 flex flex-col justify-between h-full">
+    <Card className="relative w-full bg-[#0E4A40] text-white rounded-xl shadow-lg overflow-hidden pt-3 pb-6">
+      <CardContent className="flex flex-col justify-between">
         {/* Top logos */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/images/karamad-logo-img.png"
-              alt="کارآمد"
-              width={28}
-              height={28}
-            />
-            <span className="font-bold text-lg">کارآمد</span>
-          </div>
-          {/* <Image
-            src="/icons/middleeast-bank-logo.svg"
+          <Image
+            src="/images/middleEast-logo.png"
             alt="بانک خاورمیانه"
-            width={80}
-            height={40}
-          /> */}
+            width={90}
+            height={50}
+          />
+          <Image
+            src="/images/karamad-logo.png"
+            alt="کارآمد"
+            width={50}
+            height={50}
+          />
         </div>
 
         {/* Main text */}
@@ -31,17 +28,17 @@ export function CreditCard() {
           <p className="text-base">حساب درآمد ویژه</p>
           <p className="text-lg font-semibold">
             سود روز شمار و موثر سالانه
-            <span className="font-bold text-[#FFD700]">۲۶٪</span>
+            <span className="font-bold ">۲۶</span>
           </p>
         </div>
 
         {/* Balance section */}
         <div className="mt-8 flex items-center justify-between">
+          <Eye className="w-5 h-5 opacity-80" />
           <div className="flex items-center gap-2 text-sm">
             <RotateCcw className="w-4 h-4" />
             <span>۲۸,۴۵۰,۰۰۰ ریال</span>
           </div>
-          <Eye className="w-5 h-5 opacity-80" />
         </div>
       </CardContent>
     </Card>

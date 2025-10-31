@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 import "../globals.css";
-import { Navbar } from "../components/templates/Navbar";
-import { Footer } from "../components/templates/Footer";
+import { Navbar } from "../../components/templates/Navbar";
+import { Footer } from "../../components/templates/Footer";
 
 // Metadata object for the page
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir="rtl">
       <body className="font-[kalameh]">
-        <main className="size-full m-auto max-w-116 ">
+        <main className="size-full m-auto max-w-116 px-1.5 py-3">
           <Navbar />
           {children}
           <Footer />

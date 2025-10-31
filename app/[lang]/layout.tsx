@@ -22,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir="rtl">
       <body className="font-[kalameh]">
-        <main className="size-full m-auto max-w-116 px-1.5 py-3">
+        <main className="flex flex-col gap-4 size-full m-auto max-w-116 px-1.5 py-3">
           <Navbar />
           {children}
           <Footer />

@@ -17,7 +17,7 @@ export function Footer(): JSX.Element {
   const locale = (params?.lang as string) || "fa";
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-sm">
+    <footer className="fixed bottom-0 left-0 right-0 bg-white  border-gray-200 shadow-sm max-w-116 m-auto">
       <nav className="flex justify-around items-center py-2">
         {items.map(({ href, label, icon: Icon }) => {
           const localizedHref = `/${locale}${href}`;
